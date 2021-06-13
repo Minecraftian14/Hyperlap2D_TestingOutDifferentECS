@@ -1,1 +1,1 @@
-include 'RuntimeOnAshley', 'RuntimeOnArtemis', 'lwjgl3', 'LauncherOnAshley', 'LauncherOnArtemis', 'coreOnAshley', 'coreOnArtemis'
+include 'RuntimeOnAshley', 'RuntimeOnArtemis', 'LauncherOnAshley', 'LauncherOnArtemis', 'coreOnAshley', 'coreOnArtemis'
