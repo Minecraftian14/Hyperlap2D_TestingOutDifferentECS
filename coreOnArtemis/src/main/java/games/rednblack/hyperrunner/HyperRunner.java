@@ -1,5 +1,6 @@
 package games.rednblack.hyperrunner;
 
+import com.artemis.World;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -37,7 +38,7 @@ public class HyperRunner extends ApplicationAdapter {
     private Viewport mViewport;
     private OrthographicCamera mCamera;
 
-    private PooledEngine mEngine;
+    private World mEngine;
 
     private HUD mHUD;
     private ExtendViewport mHUDViewport;
