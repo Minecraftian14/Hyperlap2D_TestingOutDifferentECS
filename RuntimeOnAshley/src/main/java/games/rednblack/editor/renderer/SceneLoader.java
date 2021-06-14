@@ -263,9 +263,7 @@ public class SceneLoader {
         engine.removeAllEntities();
         entityFactory.clean();
         //Update the engine to ensure that all pending operations are completed!!
-        long a = System.nanoTime();
         engine.update(Gdx.graphics.getDeltaTime());
-        System.out.println("Time for Engine   : " + (System.nanoTime() - a));
 
         pixelsPerWU = rm.getProjectVO().pixelToWorld;
         renderer.setPixelsPerWU(pixelsPerWU);

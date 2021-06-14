@@ -1,14 +1,12 @@
 package games.rednblack.hyperrunner.script;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.PooledEngine;
+import com.artemis.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
-
 import games.rednblack.editor.renderer.components.DimensionsComponent;
 import games.rednblack.editor.renderer.components.MainItemComponent;
 import games.rednblack.editor.renderer.components.TransformComponent;
@@ -26,20 +24,20 @@ public class PlayerScript extends BasicScript implements PhysicsContact {
     public static final int RIGHT = -1;
     public static final int JUMP = 0;
 
-    private Entity animEntity;
+    private int animEntity;
     private PhysicsBodyComponent mPhysicsBodyComponent;
 
     private final Vector2 impulse = new Vector2(0, 0);
     private final Vector2 speed = new Vector2(0, 0);
 
-    private final PooledEngine mEngine;
+    private final World mEngine;
 
-    public PlayerScript(PooledEngine engine) {
+    public PlayerScript(World engine) {
         mEngine = engine;
     }
 
     @Override
-    public void init(Entity item) {
+    public void init(int item) {
         super.init(item);
 
         ItemWrapper itemWrapper = new ItemWrapper(item);
@@ -94,7 +92,7 @@ public class PlayerScript extends BasicScript implements PhysicsContact {
     }
 
     @Override
-    public void beginContact(Entity contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
+    public void beginContact(int contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
         MainItemComponent mainItemComponent = ComponentRetriever.get(contactEntity, MainItemComponent.class);
 
         PlayerComponent playerComponent = ComponentRetriever.get(animEntity, PlayerComponent.class);
@@ -105,12 +103,12 @@ public class PlayerScript extends BasicScript implements PhysicsContact {
         DiamondComponent diamondComponent = ComponentRetriever.get(contactEntity, DiamondComponent.class);
         if (diamondComponent != null) {
             playerComponent.diamondsCollected += diamondComponent.value;
-            mEngine.removeEntity(contactEntity);
+            mEngine.delete(contactEntity);
         }
     }
 
     @Override
-    public void endContact(Entity contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
+    public void endContact(int contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
         MainItemComponent mainItemComponent = ComponentRetriever.get(contactEntity, MainItemComponent.class);
 
         PlayerComponent playerComponent = ComponentRetriever.get(animEntity, PlayerComponent.class);
@@ -120,7 +118,7 @@ public class PlayerScript extends BasicScript implements PhysicsContact {
     }
 
     @Override
-    public void preSolve(Entity contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
+    public void preSolve(int contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
         TransformComponent transformComponent = ComponentRetriever.get(this.entity, TransformComponent.class);
 
         TransformComponent colliderTransform = ComponentRetriever.get(contactEntity, TransformComponent.class);
@@ -134,7 +132,7 @@ public class PlayerScript extends BasicScript implements PhysicsContact {
     }
 
     @Override
-    public void postSolve(Entity contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
+    public void postSolve(int contactEntity, Fixture contactFixture, Fixture ownFixture, Contact contact) {
 
     }
 }

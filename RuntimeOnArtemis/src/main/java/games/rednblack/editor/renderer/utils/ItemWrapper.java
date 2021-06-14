@@ -25,6 +25,7 @@ import games.rednblack.editor.renderer.components.MainItemComponent;
 import games.rednblack.editor.renderer.components.NodeComponent;
 import games.rednblack.editor.renderer.components.ParentNodeComponent;
 import games.rednblack.editor.renderer.components.ScriptComponent;
+import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent;
 import games.rednblack.editor.renderer.scripts.IScript;
 
 import java.util.HashMap;

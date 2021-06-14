@@ -1,18 +1,36 @@
-plugins {
-    id 'java'
-}
+apply plugin: "java"
+apply plugin: "artemis"
 
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
+project.ext.weaveDir = new File("$buildDir/explodedForWeave")
+
+//task explodeForWeave(type: Sync, dependsOn: classes) {
+//    enableArtemisPlugin = true
+//    enablePooledWeaving = true
+//    optimizeEntitySystems = true
+//    classesDir = sourceSets.main.java.outputDir
+//}
+
+weave {
+//    dependsOn explodeForWeave
+    enableArtemisPlugin = true
+    enablePooledWeaving = true
+    optimizeEntitySystems = true
+    classesDir = project.weaveDir
+}
+
+classes.finalizedBy weave
+
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     implementation "net.onedaybeard.artemis:artemis-odb:$artemisVersion"
-
+    implementation "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:$artemisVersion"
 
     implementation "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
 
@@ -20,8 +38,10 @@ dependencies {
 }
 
 task dist(type: Jar) {
-    from files(sourceSets.main.output.classesDirs)
-    from files(sourceSets.main.output.resourcesDir)
+    from project.weaveDir
+//    manifest {
+//        attributes 'Main-Class': project.mainClassName
+//    }
 }
 
 tasks.withType(JavaCompile) {

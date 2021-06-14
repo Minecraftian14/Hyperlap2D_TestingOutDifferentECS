@@ -122,15 +122,6 @@ public class SceneLoader {
         }
 
         addSystems(cullingEnabled);
-
-        // TODO: Currently no idea about what to do with all these parameters, and how to add them to Artemis World
-//        this.engine = new PooledEngine(entityPoolInitialSize, entityPoolMaxSize, componentPoolInitialSize, componentPoolMaxSize);
-        this.engine = new com.artemis.World(config.build());
-
-        ComponentRetriever.initialize(engine);
-        addEntityRemoveListener();
-
-        entityFactory = new EntityFactory(engine, rayHandler, world, rm);
     }
 
     public void setResolution(String resolutionName) {
@@ -154,6 +145,22 @@ public class SceneLoader {
     // TODO: It's a nasty fix; I know: don't even know, if it'll work... Gotta test it and find a fix!
     // TODO: Have some way to add in new Systems
     public void addSystem(BaseSystem system) {
+        config.with(system);
+    }
+
+    public com.artemis.World createEngine() {
+        // TODO: Currently no idea about what to do with all these parameters, and how to add them to Artemis World
+//        this.engine = new PooledEngine(entityPoolInitialSize, entityPoolMaxSize, componentPoolInitialSize, componentPoolMaxSize);
+        this.engine = new com.artemis.World(config.build());
+
+        ComponentRetriever.initialize(engine);
+        addEntityRemoveListener();
+
+        entityFactory = new EntityFactory(engine, rayHandler, world, rm);
+
+        config = null;
+
+        return getEngine();
     }
 
     private void addSystems(boolean cullingEnabled) {
@@ -312,10 +319,8 @@ public class SceneLoader {
 
         entityFactory.clean();
         //Update the engine to ensure that all pending operations are completed!!
-        long a = System.nanoTime();
         engine.setDelta(Gdx.graphics.getDeltaTime());
         engine.process();
-        System.out.println("Time for Engine   : " + (System.nanoTime() - a));
 
         pixelsPerWU = rm.getProjectVO().pixelToWorld;
         renderer.setPixelsPerWU(pixelsPerWU);
@@ -377,7 +382,7 @@ public class SceneLoader {
 
     public void addComponentByTagName(String tagName, Class<? extends Component> componentClass) {
         IntBag entities = engine.getAspectSubscriptionManager()
-                .get(Aspect.all())
+                .get(Aspect.all(MainItemComponent.class))
                 .getEntities();
 
         for (int i = 0, s = entities.size(); s > i; i++) {
@@ -502,6 +507,10 @@ public class SceneLoader {
 
     public com.artemis.World getEngine() {
         return engine;
+    }
+
+    public WorldConfigurationBuilder getConfig() {
+        return config;
     }
 
     public RayHandler getRayHandler() {

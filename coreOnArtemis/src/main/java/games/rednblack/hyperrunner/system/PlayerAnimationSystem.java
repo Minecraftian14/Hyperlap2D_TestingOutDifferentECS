@@ -1,11 +1,9 @@
 package games.rednblack.hyperrunner.system;
 
-import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
+import com.artemis.annotations.All;
+import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.physics.box2d.Body;
-
 import games.rednblack.editor.renderer.components.ParentNodeComponent;
 import games.rednblack.editor.renderer.components.TransformComponent;
 import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent;
@@ -14,14 +12,11 @@ import games.rednblack.editor.renderer.components.sprite.SpriteAnimationStateCom
 import games.rednblack.editor.renderer.utils.ComponentRetriever;
 import games.rednblack.hyperrunner.component.PlayerComponent;
 
+@All(PlayerComponent.class)
 public class PlayerAnimationSystem extends IteratingSystem {
 
-    public PlayerAnimationSystem() {
-        super(Family.all(PlayerComponent.class).get());
-    }
-
     @Override
-    protected void processEntity(Entity entity, float deltaTime) {
+    protected void process(int entity) {
         ParentNodeComponent nodeComponent = ComponentRetriever.get(entity, ParentNodeComponent.class);
         Body body = ComponentRetriever.get(nodeComponent.parentEntity, PhysicsBodyComponent.class).body;
 
@@ -34,7 +29,7 @@ public class PlayerAnimationSystem extends IteratingSystem {
             spriteAnimationComponent.playMode = Animation.PlayMode.LOOP;
 
             spriteAnimationComponent.currentAnimation = "run";
-            spriteAnimationComponent.fps = Math.max(6, (int)Math.abs(body.getLinearVelocity().x) * 3);
+            spriteAnimationComponent.fps = Math.max(6, (int) Math.abs(body.getLinearVelocity().x) * 3);
 
             transformComponent.flipX = body.getLinearVelocity().x < 0;
         } else if (playerComponent.touchedPlatforms > 0) {
