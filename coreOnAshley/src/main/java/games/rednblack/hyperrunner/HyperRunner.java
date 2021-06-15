@@ -102,8 +102,11 @@ public class HyperRunner extends ApplicationAdapter {
         System.out.println("Artemis: " + mSceneLoader.getEngine().getClass().getName());
     }
 
+
     long sum = 0;
     double count = 0;
+    double iterations = 10_000;
+    double spacing = 1_000;
 
     @Override
     public void render() {
@@ -114,7 +117,7 @@ public class HyperRunner extends ApplicationAdapter {
 
         mViewport.apply();
 
-        if (count < 10_000) {
+        if (count > spacing && count < iterations + spacing) {
 
             long a = System.nanoTime();
             mEngine.update(Gdx.graphics.getDeltaTime());
@@ -123,12 +126,13 @@ public class HyperRunner extends ApplicationAdapter {
             if (count % 1_000 == 0) System.out.println("Time for Engine   : " + a);
 
             sum += a;
-            count++;
         } else {
-            if (count == 10_000) System.out.println("Average Value = " + (sum / count++));
+            if (count == iterations + spacing) System.out.println("Average Value = " + (sum / count++));
+
             mEngine.update(Gdx.graphics.getDeltaTime());
         }
 
+            count++;
         mHUD.act(Gdx.graphics.getDeltaTime());
         mHUDViewport.apply();
         mHUD.draw();
