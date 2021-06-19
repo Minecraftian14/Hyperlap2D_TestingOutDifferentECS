@@ -1,6 +1,6 @@
 package games.rednblack.editor.renderer.systems.render.logic;
 
-import com.artemis.BaseComponentMapper;
+import com.artemis.ComponentMapper;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import games.rednblack.editor.renderer.components.DimensionsComponent;
 import games.rednblack.editor.renderer.components.NinePatchComponent;
@@ -9,10 +9,10 @@ import games.rednblack.editor.renderer.components.TransformComponent;
 
 public class NinePatchDrawableLogic implements Drawable {
 
-    protected BaseComponentMapper<TintComponent> tintComponentComponentMapper;
-    protected BaseComponentMapper<TransformComponent> transformMapper;
-    protected BaseComponentMapper<DimensionsComponent> dimensionsMapper;
-    protected BaseComponentMapper<NinePatchComponent> ninePatchMapper;
+    protected ComponentMapper<TintComponent> tintComponentComponentMapper;
+    protected ComponentMapper<TransformComponent> transformMapper;
+    protected ComponentMapper<DimensionsComponent> dimensionsMapper;
+    protected ComponentMapper<NinePatchComponent> ninePatchMapper;
 
     @Override
     public void draw(Batch batch, int entity, float parentAlpha, RenderingType renderingType) {

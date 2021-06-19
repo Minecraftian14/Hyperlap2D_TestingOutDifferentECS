@@ -1,6 +1,6 @@
 package games.rednblack.editor.renderer.systems.render.logic;
 
-import com.artemis.BaseComponentMapper;
+import com.artemis.ComponentMapper;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import games.rednblack.editor.renderer.components.DimensionsComponent;
@@ -13,12 +13,12 @@ import games.rednblack.editor.renderer.utils.TransformMathUtils;
 
 public class LabelDrawableLogic implements Drawable {
 
-	protected BaseComponentMapper<LabelComponent> labelComponentMapper;
-	protected BaseComponentMapper<TypingLabelComponent> typingLabelComponentMapper;
-	protected BaseComponentMapper<TintComponent> tintComponentMapper;
-	protected BaseComponentMapper<DimensionsComponent> dimensionsComponentMapper;
-	protected BaseComponentMapper<TransformComponent> transformMapper;
-	protected BaseComponentMapper<ParentNodeComponent> parentNodeComponentComponentMapper;
+	protected ComponentMapper<LabelComponent> labelComponentMapper;
+	protected ComponentMapper<TypingLabelComponent> typingLabelComponentMapper;
+	protected ComponentMapper<TintComponent> tintComponentMapper;
+	protected ComponentMapper<DimensionsComponent> dimensionsComponentMapper;
+	protected ComponentMapper<TransformComponent> transformMapper;
+	protected ComponentMapper<ParentNodeComponent> parentNodeComponentComponentMapper;
 
 	private final Color tmpColor = new Color();
 

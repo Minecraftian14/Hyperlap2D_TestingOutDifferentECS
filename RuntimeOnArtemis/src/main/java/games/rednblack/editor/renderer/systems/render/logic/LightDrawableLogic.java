@@ -1,7 +1,7 @@
 package games.rednblack.editor.renderer.systems.render.logic;
 
 
-import com.artemis.BaseComponentMapper;
+import com.artemis.ComponentMapper;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import games.rednblack.editor.renderer.components.ParentNodeComponent;
@@ -10,9 +10,9 @@ import games.rednblack.editor.renderer.components.light.LightObjectComponent;
 
 public class LightDrawableLogic implements Drawable {
 
-    protected BaseComponentMapper<LightObjectComponent> lightComponentMapper;
-    protected BaseComponentMapper<TintComponent> tintComponentMapper;
-    protected BaseComponentMapper<ParentNodeComponent> parentNodeComponentComponentMapper;
+    protected ComponentMapper<LightObjectComponent> lightComponentMapper;
+    protected ComponentMapper<TintComponent> tintComponentMapper;
+    protected ComponentMapper<ParentNodeComponent> parentNodeComponentComponentMapper;
 
     private final Color tmpColor = new Color();
 

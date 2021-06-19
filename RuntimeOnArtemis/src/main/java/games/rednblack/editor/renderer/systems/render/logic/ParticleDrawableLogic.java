@@ -1,6 +1,6 @@
 package games.rednblack.editor.renderer.systems.render.logic;
 
-import com.artemis.BaseComponentMapper;
+import com.artemis.ComponentMapper;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import games.rednblack.editor.renderer.components.TransformComponent;
 import games.rednblack.editor.renderer.components.particle.ParticleComponent;
@@ -8,8 +8,8 @@ import games.rednblack.editor.renderer.utils.TransformMathUtils;
 
 public class ParticleDrawableLogic implements Drawable {
 
-    protected BaseComponentMapper<ParticleComponent> particleComponentMapper;
-    protected BaseComponentMapper<TransformComponent> transformComponentMapper;
+    protected ComponentMapper<ParticleComponent> particleComponentMapper;
+    protected ComponentMapper<TransformComponent> transformComponentMapper;
 
     @Override
     public void draw(Batch batch, int entity, float parentAlpha, RenderingType renderingType) {
