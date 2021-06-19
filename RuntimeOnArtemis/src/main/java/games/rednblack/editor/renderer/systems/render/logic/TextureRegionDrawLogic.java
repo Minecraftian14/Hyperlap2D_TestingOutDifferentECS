@@ -22,18 +22,8 @@ public class TextureRegionDrawLogic implements Drawable {
 
     private final Color batchColor = new Color();
 
-    private void init() {
-        tintComponentComponentMapper = ComponentRetriever.getMapper(TintComponent.class);
-        textureRegionMapper = ComponentRetriever.getMapper(TextureRegionComponent.class);
-        transformMapper = ComponentRetriever.getMapper(TransformComponent.class);
-        dimensionsComponentComponentMapper = ComponentRetriever.getMapper(DimensionsComponent.class);
-        normalTextureRegionMapper = ComponentRetriever.getMapper(NormalTextureRegionComponent.class);
-    }
-
     @Override
     public void draw(Batch batch, int entity, float parentAlpha, RenderingType renderingType) {
-        if(tintComponentComponentMapper==null) init(); // TODO: Can we have an injection for this object?
-
         TextureRegionComponent entityTextureRegionComponent = textureRegionMapper.get(entity);
         ShaderComponent shaderComponent = ComponentRetriever.get(entity, ShaderComponent.class);
 

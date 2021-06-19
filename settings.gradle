@@ -1,1 +1,16 @@
-include 'RuntimeOnAshley', 'RuntimeOnArtemis', 'LauncherOnAshley', 'LauncherOnArtemis', 'coreOnAshley', 'coreOnArtemis'
+include 'engineAdaptor'
+
+include 'RuntimeOnAshley'
+include 'RuntimeOnArtemis'
+include 'RuntimeOnEngineAdaptor'
+
+include 'coreOnAshley'
+include 'coreOnArtemis'
+include 'coreOnEngineAdaptor'
+
+include 'LauncherOnAshley'
+include 'LauncherOnArtemis'
+include 'LauncherOnEngineAdaptor'
+include 'DELETE_ME'
+include 'AshleyAdaptor'
+

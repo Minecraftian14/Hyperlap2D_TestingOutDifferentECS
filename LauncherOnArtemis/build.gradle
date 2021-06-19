@@ -1,8 +1,8 @@
 apply plugin: 'application'
 
 sourceSets.main.resources.srcDirs += [rootProject.file('assets').path]
-mainClassName = 'games.rednblack.hyperlap2d.example.lwjgl3.Lwjgl3Launcher'
-eclipse.project.name = appName + '-lwjgl3'
+mainClassName = 'games.rednblack.hyperrunner.lwjgl3.Lwjgl3Launcher'
+eclipse.project.name = appName + '-games.rednblack.editor.lwjgl3'
 sourceCompatibility = 8.0
 
 dependencies {

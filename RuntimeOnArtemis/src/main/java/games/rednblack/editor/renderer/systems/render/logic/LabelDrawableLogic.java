@@ -3,10 +3,12 @@ package games.rednblack.editor.renderer.systems.render.logic;
 import com.artemis.BaseComponentMapper;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import games.rednblack.editor.renderer.components.*;
+import games.rednblack.editor.renderer.components.DimensionsComponent;
+import games.rednblack.editor.renderer.components.ParentNodeComponent;
+import games.rednblack.editor.renderer.components.TintComponent;
+import games.rednblack.editor.renderer.components.TransformComponent;
 import games.rednblack.editor.renderer.components.label.LabelComponent;
 import games.rednblack.editor.renderer.components.label.TypingLabelComponent;
-import games.rednblack.editor.renderer.utils.ComponentRetriever;
 import games.rednblack.editor.renderer.utils.TransformMathUtils;
 
 public class LabelDrawableLogic implements Drawable {
@@ -20,19 +22,8 @@ public class LabelDrawableLogic implements Drawable {
 
 	private final Color tmpColor = new Color();
 
-	public void init() {
-		labelComponentMapper = ComponentRetriever.getMapper(LabelComponent.class);
-		tintComponentMapper = ComponentRetriever.getMapper(TintComponent.class);
-		dimensionsComponentMapper = ComponentRetriever.getMapper(DimensionsComponent.class);
-		transformMapper = ComponentRetriever.getMapper(TransformComponent.class);
-		parentNodeComponentComponentMapper = ComponentRetriever.getMapper(ParentNodeComponent.class);
-		typingLabelComponentMapper = ComponentRetriever.getMapper(TypingLabelComponent.class);
-	}
-	
 	@Override
 	public void draw(Batch batch, int entity, float parentAlpha, RenderingType renderingType) {
-		if(labelComponentMapper==null) init(); // TODO: Can we have an injection for this object?
-
 		TransformComponent entityTransformComponent = transformMapper.get(entity);
 		LabelComponent labelComponent = labelComponentMapper.get(entity);
 		DimensionsComponent dimensionsComponent = dimensionsComponentMapper.get(entity);

@@ -25,11 +25,9 @@ import games.rednblack.editor.renderer.components.MainItemComponent;
 import games.rednblack.editor.renderer.components.NodeComponent;
 import games.rednblack.editor.renderer.components.ParentNodeComponent;
 import games.rednblack.editor.renderer.components.ScriptComponent;
-import games.rednblack.editor.renderer.components.physics.PhysicsBodyComponent;
 import games.rednblack.editor.renderer.scripts.IScript;
 
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  * Created by azakhary on 7/8/2015.
@@ -49,7 +47,7 @@ public class ItemWrapper {
     public ItemWrapper(int entity) {
         this.entity = entity;
         nodeComponent = ComponentRetriever.get(entity, NodeComponent.class);
-        if(nodeComponent != null) {
+        if (nodeComponent != null) {
             for (int child : nodeComponent.children) {
                 mapEntity(child);
             }
@@ -74,7 +72,7 @@ public class ItemWrapper {
 
     public ItemWrapper getChild(String id) {
         int entity = childrenMap.get(id);
-        if(entity == -1) return new ItemWrapper();
+        if (entity == -1) return new ItemWrapper();
 
         return new ItemWrapper(entity);
     }
@@ -91,7 +89,7 @@ public class ItemWrapper {
     }
 
     public ItemWrapper addChild(int child) {
-        if(nodeComponent != null) {
+        if (nodeComponent != null) {
             ParentNodeComponent parentNodeComponent = ComponentRetriever.get(child, ParentNodeComponent.class);
             if (parentNodeComponent.parentEntity != -1) {
                 //Remove child from its parent
@@ -104,7 +102,7 @@ public class ItemWrapper {
 
             mapEntity(child);
 
-            return  new ItemWrapper(child);
+            return new ItemWrapper(child);
         }
 
         return new ItemWrapper();
@@ -121,8 +119,9 @@ public class ItemWrapper {
 
     public IScript addScript(IScript script, World engine) {
         ScriptComponent component = ComponentRetriever.get(entity, ScriptComponent.class);
-        if(component == null) {
+        if (component == null) {
             component = engine.edit(entity).create(ScriptComponent.class);
+            component.engine = engine;
         }
         component.addScript(script);
         script.init(entity);
